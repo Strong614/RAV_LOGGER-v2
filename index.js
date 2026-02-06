@@ -1,24 +1,30 @@
+// --------------------------- bot.js ---------------------------
 import "dotenv/config";
 import { Client, GatewayIntentBits, Collection, REST, Routes, ChannelType } from "discord.js";
 import fs from "fs";
+import express from "express";
 import { startReminders } from "./jobs/reminders.js";
 
-const { TOKEN, CLIENT_ID, GUILD_ID, LOG_CHANNEL_ID } = process.env;
+const { TOKEN, CLIENT_ID, GUILD_ID, LOG_CHANNEL_ID, PORT } = process.env;
 
+// --------------------------- Environment check ---------------------------
 if (!TOKEN || !CLIENT_ID || !GUILD_ID || !LOG_CHANNEL_ID) {
   console.error("❌ Missing TOKEN, CLIENT_ID, GUILD_ID, or LOG_CHANNEL_ID in .env");
   process.exit(1);
 }
 
+// --------------------------- Discord client ---------------------------
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // Collection to store commands
 client.commands = new Collection();
 
-// Load commands dynamically
+// --------------------------- Load commands dynamically ---------------------------
 async function loadCommands() {
   const commands = [];
-  const commandFiles = fs.readdirSync("./commands").filter(f => f.endsWith(".js") && f !== "deploy-commands.js");
+  const commandFiles = fs
+    .readdirSync("./commands")
+    .filter(f => f.endsWith(".js") && f !== "deploy-commands.js");
 
   for (const file of commandFiles) {
     const commandModule = await import(`./commands/${file}`);
@@ -36,7 +42,7 @@ async function loadCommands() {
   return commands;
 }
 
-// Deploy commands to your guild
+// --------------------------- Deploy commands to guild ---------------------------
 async function deployCommands(commands) {
   const rest = new REST({ version: "10" }).setToken(TOKEN);
   try {
@@ -48,18 +54,19 @@ async function deployCommands(commands) {
   }
 }
 
-// Send startup message to log channel
+// --------------------------- Log channel helper ---------------------------
 async function sendLogChannelMessage(message) {
   try {
     const channel = await client.channels.fetch(LOG_CHANNEL_ID);
     if (channel?.type === ChannelType.GuildText) {
-      channel.send({ content: message });
+      await channel.send({ content: message });
     }
   } catch (err) {
     console.error("Failed to send log message:", err);
   }
 }
 
+// --------------------------- Discord bot events ---------------------------
 client.once("ready", async () => {
   console.log(`✅ Bot is ONLINE: ${client.user.tag}`);
 
@@ -86,7 +93,19 @@ client.on("interactionCreate", async interaction => {
   }
 });
 
-// Start bot
+// --------------------------- Web server for Render / health checks ---------------------------
+const webApp = express();
+const webPort = PORT || 3000;
+
+webApp.get("/", (req, res) => {
+  res.send("✅ Bot is running");
+});
+
+webApp.listen(webPort, () => {
+  console.log(`🌐 Web server listening on port ${webPort}`);
+});
+
+// --------------------------- Start bot ---------------------------
 (async () => {
   const commands = await loadCommands();
   await deployCommands(commands);
