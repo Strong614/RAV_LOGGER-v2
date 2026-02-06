@@ -70,9 +70,6 @@ async function sendLogChannelMessage(message) {
 client.once("ready", async () => {
   console.log(`✅ Bot is ONLINE: ${client.user.tag}`);
 
-  // Send startup message
-  await sendLogChannelMessage(`✅ Bot is ONLINE: ${client.user.tag}`);
-
   // Start reminders
   startReminders(client);
 });
