@@ -1,0 +1,526 @@
+[
+  {
+    "type": "JOIN",
+    "username": "medamine1919",
+    "name": "LightSide",
+    "rank": "Vice Leader",
+    "joinedAt": "2025-04-13T14:05:59Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-13T14:05:59Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "ilyass99",
+    "name": "Winter",
+    "rank": "Head HQ",
+    "joinedAt": "2025-04-13T14:13:58Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-13T14:13:58Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "nutellaguy",
+    "name": "DocPizza",
+    "rank": "Member",
+    "joinedAt": "2025-04-13T19:48:51Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-13T19:48:51Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "andomiiie",
+    "name": "Hammer",
+    "rank": "Member",
+    "joinedAt": "2025-04-14T21:56:02Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-14T21:56:02Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "kelvinpr182",
+    "name": "Infinity",
+    "rank": "Member",
+    "joinedAt": "2025-04-14T23:11:33Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-14T23:11:33Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "groswfils00",
+    "name": "GrowsFills",
+    "rank": "Member",
+    "joinedAt": "2025-04-17T22:04:02Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-17T22:04:02Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "osmanbem",
+    "name": "Alvarez",
+    "rank": "Member",
+    "joinedAt": "2025-04-24T23:08:53Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-24T23:08:53Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "jojo0906",
+    "name": "Jojo",
+    "rank": "Member",
+    "joinedAt": "2025-04-28T23:28:27Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-04-28T23:28:27Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "lwa7ch",
+    "name": "Megatron",
+    "rank": "Member",
+    "joinedAt": "2025-05-05T01:07:48Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-05-05T01:07:48Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "alikartoucha",
+    "name": "cesar",
+    "rank": "Member",
+    "joinedAt": "2025-06-02T13:10:47Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-06-02T13:10:47Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "tugamer",
+    "name": "EddLegend47",
+    "rank": "Member",
+    "joinedAt": "2025-06-12T17:26:12Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-06-12T17:26:12Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "lexus123",
+    "name": "VartA",
+    "rank": "Member",
+    "joinedAt": "2025-06-23T15:48:15Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-06-23T15:48:15Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "zyler",
+    "name": "Zyler",
+    "rank": "Member",
+    "joinedAt": "2025-07-09T00:54:50Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-07-09T00:54:50Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "safwensafwebn",
+    "name": "Mario",
+    "rank": "Member",
+    "joinedAt": "2025-07-09T01:01:21Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-07-09T01:01:21Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "ballhaar",
+    "name": "naulty",
+    "rank": "Member",
+    "joinedAt": "2025-07-09T19:55:12Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-07-09T19:55:12Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "lolipipe",
+    "name": "Walter",
+    "rank": "Member",
+    "joinedAt": "2025-07-16T22:55:15Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-07-16T22:55:15Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "zekeriya132",
+    "name": "Zekeriya",
+    "rank": "Member",
+    "joinedAt": "2025-08-06T20:01:26Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-08-06T20:01:26Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "mahdi444",
+    "name": "doom",
+    "rank": "Member",
+    "joinedAt": "2025-08-13T00:19:36Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-08-13T00:19:36Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "0rex33",
+    "name": "yasser",
+    "rank": "Member",
+    "joinedAt": "2025-08-26T00:54:58Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-08-26T00:54:58Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "mahmoud89",
+    "name": "ZynoXx",
+    "rank": "Member",
+    "joinedAt": "2025-10-31T21:26:36Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-10-31T21:26:36Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "darkweb761",
+    "name": "turki",
+    "rank": "Member",
+    "joinedAt": "2025-11-02T17:01:28Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-02T17:01:28Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "trisarahtops",
+    "name": "Sarah",
+    "rank": "Member",
+    "joinedAt": "2025-11-03T00:21:07Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-03T00:21:07Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "tifoo",
+    "name": "tifoo",
+    "rank": "Member",
+    "joinedAt": "2025-11-03T00:27:01Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-03T00:27:01Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "gaivina",
+    "name": "gaivinajunior",
+    "rank": "Member",
+    "joinedAt": "2025-11-05T23:15:10Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-05T23:15:10Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "dexter72",
+    "name": "D3xTer",
+    "rank": "Member",
+    "joinedAt": "2025-11-05T20:25:58Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-05T20:25:58Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "alienmaker",
+    "name": "Alien",
+    "rank": "Member",
+    "joinedAt": "2025-11-05T22:24:09Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-05T22:24:09Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "louari",
+    "name": "Louari",
+    "rank": "Member",
+    "joinedAt": "2025-11-09T23:34:17Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-09T23:34:17Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "hardxo",
+    "name": "JawhR",
+    "rank": "Member",
+    "joinedAt": "2025-11-28T12:27:33Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-28T12:27:33Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "momen123",
+    "name": "Snoupa",
+    "rank": "Member",
+    "joinedAt": "2025-11-30T15:13:13Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-30T15:13:13Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "dororo",
+    "name": "M8N",
+    "rank": "Member",
+    "joinedAt": "2025-11-30T15:53:48Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-11-30T15:53:48Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "tawyji",
+    "name": "Slay",
+    "rank": "Member",
+    "joinedAt": "2025-12-03T01:32:48Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-12-03T01:32:48Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "selva",
+    "name": "S4lva!",
+    "rank": "Member",
+    "joinedAt": "2025-12-12T15:54:34Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-12-12T15:54:34Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "firas5tears",
+    "name": "Fivetears",
+    "rank": "Member",
+    "joinedAt": "2025-12-14T20:39:47Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-12-14T20:39:47Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "bargoubarras",
+    "name": "Bargou!",
+    "rank": "Member",
+    "joinedAt": "2025-12-23T23:45:33Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2025-12-23T23:45:33Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "snoopys",
+    "name": "Snoopy",
+    "rank": "Member",
+    "joinedAt": "2026-01-03T16:36:06Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-03T16:36:06Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "ahmedlwr",
+    "name": "ahmedlwr",
+    "rank": "Member",
+    "joinedAt": "2026-01-07T13:31:29Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-07T13:31:29Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "adem50",
+    "name": "adam",
+    "rank": "Member",
+    "joinedAt": "2026-01-14T18:05:43Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-14T18:05:43Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "stayalittlelonger",
+    "name": "Thug",
+    "rank": "Member",
+    "joinedAt": "2026-01-16T20:42:42Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-16T20:42:42Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "mrdeathboy",
+    "name": "Rose",
+    "rank": "Member",
+    "joinedAt": "2026-01-28T19:55:56Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-28T19:55:56Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "lilou",
+    "name": "Disaster",
+    "rank": "Member",
+    "joinedAt": "2026-01-29T18:58:04Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-29T18:58:04Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "baha111",
+    "name": "Blacky",
+    "rank": "Member",
+    "joinedAt": "2026-01-30T11:33:51Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-30T11:33:51Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "isis02",
+    "name": "Razak",
+    "rank": "Member",
+    "joinedAt": "2026-01-31T19:18:09Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-31T19:18:09Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "micafz09",
+    "name": "Fz",
+    "rank": "Member",
+    "joinedAt": "2026-01-31T22:00:58Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-01-31T22:00:58Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "xxlazarxx",
+    "name": "Lazar",
+    "rank": "Member",
+    "joinedAt": "2026-02-01T22:00:58Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-02-01T22:00:58Z"
+  },
+  {
+    "type": "JOIN",
+    "username": "casanova007",
+    "name": "TasA",
+    "rank": "Member",
+    "joinedAt": "2026-02-03T22:00:58Z",
+    "warnings": 0,
+    "by": "mas3ouda",
+    "timestamp": "2026-02-03T22:00:58Z"
+  },
+  {
+    "type": "JOIN",
+    "name": "Elotham",
+    "username": "xxamounexx",
+    "by": "mas3ouda",
+    "timestamp": "2026-02-06T00:10:32.351Z",
+    "rank": "Member",
+    "joinedAt": "2026-02-06T00:10:32.351Z",
+    "warnings": 0
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "Scofield",
+    "username": "houssos1",
+    "by": "nutellaguy",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for rejoining another organization while actively applying to our squad."
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "Creed",
+    "username": "babi01",
+    "by": "ilyass99",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for repeatedly discarding his application after being given multiple chances, and for continuously hopping between organizations."
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "Ayoub",
+    "username": "ayoub45",
+    "by": "mas3ouda",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for throwing away his application and frequently switching between organizations."
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "Flopfather",
+    "username": "vitoo8",
+    "by": "ilyass99",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for canceling his application twice in order to join another organization."
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "Kikoz",
+    "username": "kikozdon",
+    "by": "ilyass99",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for trash-talking squads and their headquarters."
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "P4ndora",
+    "username": "annaliza",
+    "by": "medamine1919",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for leaving the squad twice despite being given a second chance under probation."
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "Vladimir",
+    "username": "wadia",
+    "by": "medamine1919",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for trash-talking the RAV HQ team and insulting their families."
+  },
+  {
+    "type": "BLACKLIST",
+    "name": "Drogado",
+    "username": "drogado",
+    "by": "osmanbem",
+    "timestamp": "Unkown date",
+    "extra": "Blacklisted for trash-talking the squad and making threats to report it."
+  }
+]
