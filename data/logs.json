@@ -532,5 +532,14 @@
     "by": "osmanbem",
     "timestamp": "Unkown date",
     "extra": "Blacklisted for trash-talking the squad and making threats to report it."
-  }
+  },
+  {
+  "type": "PROMOTE",
+  "name": "SilentLaw",
+  "username": "197",
+  "by": "osmanbem",
+  "timestamp": "2026-02-09T13:04:56.328Z",
+  "from": "Neophyte",
+  "to": "Dagger"
+}
 ]
