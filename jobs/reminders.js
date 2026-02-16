@@ -1,7 +1,4 @@
-import path from "path";
-import { readJSON, writeJSON } from "../utils/db.js";
-
-const MEMBERS_PATH = path.resolve("./data/members.json");
+import { getAllMembers, saveMember } from "../db/postgres.js";
 
 const HQ_ROLE_ID = "1361016918001058005";
 const SHQ_ROLE_ID = "1420896047839838249";
@@ -13,7 +10,8 @@ const ONE_MONTH_MS = 30 * 24 * 60 * 60 * 1000;
 export function startReminders(client) {
   setInterval(async () => {
     try {
-      const members = readJSON(MEMBERS_PATH, {});
+      // 👇 Get members from database
+      const members = await getAllMembers({ status: "active" });
       const now = Date.now();
 
       const channel = await client.channels.fetch(REMINDERS_CHANNEL_ID);
@@ -24,7 +22,7 @@ export function startReminders(client) {
 
       const completed = [];
 
-      for (const member of Object.values(members)) {
+      for (const member of members) {
         if (member.rank?.toLowerCase() !== "neophyte") continue;
         if (member.notifiedOneMonth) continue;
 
@@ -32,7 +30,12 @@ export function startReminders(client) {
         if (now - joinedAt < ONE_MONTH_MS) continue;
 
         completed.push(`${member.name} (${member.username})`);
-        member.notifiedOneMonth = true;
+        
+        // 👇 Update member in database
+        await saveMember({
+          ...member,
+          notifiedOneMonth: true
+        });
       }
 
       // Nothing new → no ping
@@ -45,9 +48,6 @@ export function startReminders(client) {
         completed.join("\n") +
         "```"
       );
-
-      // 🔒 Persist flags so it never repeats
-      writeJSON(MEMBERS_PATH, members);
 
     } catch (err) {
       console.error("Reminder job error:", err);

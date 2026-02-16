@@ -7,13 +7,10 @@ import {
   TextInputBuilder, 
   TextInputStyle 
 } from "discord.js";
-import { readJSON } from "../utils/db.js";
-import path from "path";
+import { getAllMembers } from "../db/postgres.js";
 
-const MEMBERS_PATH = path.resolve("./data/members.json");
 const PAGE_SIZE = 20;
 
-// Rank hierarchy (Vanguard Supreme at top, Neophyte at bottom)
 const RANK_ORDER = [
   "Vanguard Supreme",
   "Phantom Leader",
@@ -59,73 +56,55 @@ export default {
         .setRequired(false)),
 
   async execute(interaction) {
-  // --- RESTRICTIONS ---
-  const ALLOWED_ROLES = ["1361016918001058005", "1420896047839838249"]; // HQ & sHQ
-  const ALLOWED_CHANNEL = "1469057497166905375"; // replace with your channel ID
+    await interaction.deferReply();
 
-  // Check channel
-  if (interaction.channelId !== ALLOWED_CHANNEL) {
-    return interaction.reply({
-      content: `❌ You can only use this command in <#${ALLOWED_CHANNEL}>.`,
-      ephemeral: true
-    });
-  }
+    const ALLOWED_ROLES = ["1361016918001058005", "1420896047839838249"];
+    const ALLOWED_CHANNEL = "1469057497166905375";
 
-  // Check roles
-  const memberRoles = interaction.member.roles.cache.map(r => r.id);
-  const hasAccess = memberRoles.some(r => ALLOWED_ROLES.includes(r));
-  if (!hasAccess) {
-    return interaction.reply({
-      content: "❌ You do not have permission to use this command.",
-      ephemeral: true
-    });
-  }
-
-  // --- ORIGINAL LOGIC ---
-  try {
-    const membersData = readJSON(MEMBERS_PATH, {});
-    let members = Object.values(membersData);
-
-    // Get filters/sorting options
-    const nameFilter = interaction.options.getString("name")?.toLowerCase() || null;
-    const rankFilter = interaction.options.getString("rank") || null;
-    const sortField = interaction.options.getString("sort") || "joined"; // default: joined
-    const sortOrder = interaction.options.getString("order") || "asc"; // default ascending
-
-    // Filter by name
-    if (nameFilter) {
-      members = members.filter(m => m.name.toLowerCase().includes(nameFilter));
+    if (interaction.channelId !== ALLOWED_CHANNEL) {
+      return interaction.editReply({
+        content: `❌ You can only use this command in <#${ALLOWED_CHANNEL}>.`
+      });
     }
 
-    // Filter by rank
-    if (rankFilter) {
-      members = members.filter(m => m.rank.toLowerCase() === rankFilter.toLowerCase());
+    const memberRoles = interaction.member.roles.cache.map(r => r.id);
+    const hasAccess = memberRoles.some(r => ALLOWED_ROLES.includes(r));
+    if (!hasAccess) {
+      return interaction.editReply({
+        content: "❌ You do not have permission to use this command."
+      });
     }
 
-    if (!members.length) {
-      return interaction.reply({ content: "No members found for the specified filters.", ephemeral: true });
-    }
+    try {
+      const nameFilter = interaction.options.getString("name") || null;
+      const rankFilter = interaction.options.getString("rank") || null;
+      const sortField = interaction.options.getString("sort") || "joined";
+      const sortOrder = interaction.options.getString("order") || "asc";
 
-    // Sort
-    members.sort((a, b) => {
-      let comp = 0;
-      if (sortField === "name") {
-        comp = a.name.localeCompare(b.name);
-      } else if (sortField === "rank") {
-        const aIndex = RANK_ORDER.indexOf(a.rank) !== -1 ? RANK_ORDER.indexOf(a.rank) : RANK_ORDER.length;
-        const bIndex = RANK_ORDER.indexOf(b.rank) !== -1 ? RANK_ORDER.indexOf(b.rank) : RANK_ORDER.length;
-        comp = aIndex - bIndex;
-      } else if (sortField === "joined") {
-        comp = new Date(a.joinedAt) - new Date(b.joinedAt);
+      let members = await getAllMembers({
+        name: nameFilter,
+        rank: rankFilter,
+        sortField,
+        sortOrder: sortOrder === "desc" ? "desc" : "asc",
+        status: "active"
+      });
+
+      if (sortField === "rank") {
+        members.sort((a, b) => {
+          const aIndex = RANK_ORDER.indexOf(a.rank) !== -1 ? RANK_ORDER.indexOf(a.rank) : RANK_ORDER.length;
+          const bIndex = RANK_ORDER.indexOf(b.rank) !== -1 ? RANK_ORDER.indexOf(b.rank) : RANK_ORDER.length;
+          const comp = aIndex - bIndex;
+          return sortOrder === "asc" ? comp : -comp;
+        });
       }
-      return sortOrder === "asc" ? comp : -comp;
-    });
 
-      // Pagination variables
+      if (!members.length) {
+        return interaction.editReply({ content: "No members found for the specified filters." });
+      }
+
       let page = 0;
       const totalPages = Math.ceil(members.length / PAGE_SIZE);
 
-      // Column widths
       const NAME_WIDTH = 18;
       const USERNAME_WIDTH = 18;
       const RANK_WIDTH = 18;
@@ -156,7 +135,6 @@ export default {
 ${'-'.repeat(NAME_WIDTH + USERNAME_WIDTH + RANK_WIDTH + JOINED_WIDTH + 9)}`;
 
         const table = slice.map(formatMember).join('\n');
-
         const footer = `\nPage ${page + 1}/${totalPages} | Total Members: ${members.length}`;
         return `\`\`\`\n${header}\n${table}${footer}\n\`\`\``;
       };
@@ -180,10 +158,9 @@ ${'-'.repeat(NAME_WIDTH + USERNAME_WIDTH + RANK_WIDTH + JOINED_WIDTH + 9)}`;
         )
       ];
 
-      const message = await interaction.reply({
+      const message = await interaction.editReply({
         content: getTable(page),
-        components: getComponents(),
-        fetchReply: true
+        components: getComponents()
       });
 
       const collector = message.createMessageComponentCollector({ time: 5 * 60 * 1000 });
@@ -232,9 +209,7 @@ ${'-'.repeat(NAME_WIDTH + USERNAME_WIDTH + RANK_WIDTH + JOINED_WIDTH + 9)}`;
 
     } catch (err) {
       console.error("Error fetching members:", err);
-      if (!interaction.replied) {
-        await interaction.reply({ content: "Failed to fetch members.", ephemeral: true });
-      }
+      await interaction.editReply({ content: "Failed to fetch members." });
     }
   },
 };

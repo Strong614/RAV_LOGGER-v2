@@ -8,10 +8,8 @@ import {
   TextInputBuilder,
   TextInputStyle,
 } from "discord.js";
-import { readJSON } from "../utils/db.js";
-import path from "path";
+import { getAllLogs } from "../db/postgres.js";
 
-const LOGS_PATH = path.resolve("./data/logs.json");
 const PAGE_SIZE = 5;
 
 const LOG_TYPES = [
@@ -31,96 +29,90 @@ export default {
     .setDescription("Displays logs with pagination and filtering"),
 
   async execute(interaction) {
-  // --- RESTRICTIONS ---
-  const ALLOWED_ROLES = ["1361016918001058005", "1420896047839838249"]; // HQ & sHQ
-  const ALLOWED_CHANNEL = "1469057497166905375"; // replace with your channel ID
+    await interaction.deferReply();
 
-  // Check channel
-  if (interaction.channelId !== ALLOWED_CHANNEL) {
-    return interaction.reply({
-      content: `❌ You can only use this command in <#${ALLOWED_CHANNEL}>.`,
-      ephemeral: true
-    });
-  }
+    const ALLOWED_ROLES = ["1361016918001058005", "1420896047839838249"];
+    const ALLOWED_CHANNEL = "1469057497166905375";
 
-  // Check roles
-  const memberRoles = interaction.member.roles.cache.map(r => r.id);
-  const hasAccess = memberRoles.some(r => ALLOWED_ROLES.includes(r));
-  if (!hasAccess) {
-    return interaction.reply({
-      content: "❌ You do not have permission to use this command.",
-      ephemeral: true
-    });
-  }
+    if (interaction.channelId !== ALLOWED_CHANNEL) {
+      return interaction.editReply({
+        content: `❌ You can only use this command in <#${ALLOWED_CHANNEL}>.`
+      });
+    }
 
-  // --- ORIGINAL LOGIC ---
-  try {
-    const logs = readJSON(LOGS_PATH, []);
-    if (!logs.length)
-      return interaction.reply({ content: "No logs found.", ephemeral: true });
+    const memberRoles = interaction.member.roles.cache.map(r => r.id);
+    const hasAccess = memberRoles.some(r => ALLOWED_ROLES.includes(r));
+    if (!hasAccess) {
+      return interaction.editReply({
+        content: "❌ You do not have permission to use this command."
+      });
+    }
 
-    let page = 0;
-    let selectedType = "ALL";
+    try {
+      let page = 0;
+      let selectedType = "ALL";
 
-    const getFilteredLogs = () =>
-      selectedType === "ALL" ? logs : logs.filter((l) => l.type === selectedType);
+      const getFilteredLogs = async () => {
+        return await getAllLogs({ 
+          type: selectedType === "ALL" ? null : selectedType 
+        });
+      };
 
-    const formatLog = (log, type) => {
-      const date = new Date(log.timestamp);
-      const timeStr = `${date.toLocaleDateString("en-GB")} ${date
-        .toLocaleTimeString("en-GB", { hour12: false })
-        .slice(0, 5)}`;
+      const formatLog = (log, type) => {
+        const date = new Date(log.timestamp);
+        const timeStr = `${date.toLocaleDateString("en-GB")} ${date
+          .toLocaleTimeString("en-GB", { hour12: false })
+          .slice(0, 5)}`;
 
-      const fields = [`Type: ${log.type ?? "-"}`];
+        const fields = [`Type: ${log.type ?? "-"}`];
 
-      switch (type) {
-        case "ALL":
-        case "JOIN":
-          fields.push(`Username: ${log.username ?? "-"}`);
-          fields.push(`Name: ${log.name ?? "-"}`);
-          fields.push(`By: ${log.by ?? "-"}`);
-          fields.push(`Time: ${timeStr}`);
-          break;
-        case "LEFT":
-          fields.push(`Username: ${log.username ?? "-"}`);
-          fields.push(`Name: ${log.name ?? "-"}`);
-          fields.push(`Reason: ${log.extra ?? "-"}`);
-          fields.push(`Time: ${timeStr}`);
-          break;
-        case "WARN":
-        case "KICK":
-          fields.push(`Username: ${log.username ?? "-"}`);
-          fields.push(`Name: ${log.name ?? "-"}`);
-          fields.push(`By: ${log.by ?? "-"}`);
-          fields.push(`Reason: ${log.extra ?? "-"}`);
-          fields.push(`Time: ${timeStr}`);
-          break;
-        case "BLACKLIST":
-          fields.push(`Username: ${log.username ?? "-"}`);
-          fields.push(`Name: ${log.name ?? "-"}`);
-          fields.push(`By: ${log.by ?? "-"}`);
-          fields.push(`Reason: ${log.extra ?? "-"}`);
-          break;
-        case "PROMOTE":
-        case "DEMOTE":
-          fields.push(`Username: ${log.username ?? "-"}`);
-          fields.push(`Name: ${log.name ?? "-"}`);
-          fields.push(`From: ${log.from ?? "-"}`);
-          fields.push(`To: ${log.to ?? "-"}`);
-          fields.push(`By: ${log.by ?? "-"}`);
-          if (type === "DEMOTE") fields.push(`Reason: ${log.extra ?? "-"}`);
-          fields.push(`Time: ${timeStr}`);
-          break;
-      }
+        switch (type) {
+          case "ALL":
+          case "JOIN":
+            fields.push(`Username: ${log.username ?? "-"}`);
+            fields.push(`Name: ${log.name ?? "-"}`);
+            fields.push(`By: ${log.by ?? "-"}`);
+            fields.push(`Time: ${timeStr}`);
+            break;
+          case "LEFT":
+            fields.push(`Username: ${log.username ?? "-"}`);
+            fields.push(`Name: ${log.name ?? "-"}`);
+            fields.push(`Reason: ${log.extra ?? "-"}`);
+            fields.push(`Time: ${timeStr}`);
+            break;
+          case "WARN":
+          case "KICK":
+            fields.push(`Username: ${log.username ?? "-"}`);
+            fields.push(`Name: ${log.name ?? "-"}`);
+            fields.push(`By: ${log.by ?? "-"}`);
+            fields.push(`Reason: ${log.extra ?? "-"}`);
+            fields.push(`Time: ${timeStr}`);
+            break;
+          case "BLACKLIST":
+            fields.push(`Username: ${log.username ?? "-"}`);
+            fields.push(`Name: ${log.name ?? "-"}`);
+            fields.push(`By: ${log.by ?? "-"}`);
+            fields.push(`Reason: ${log.extra ?? "-"}`);
+            break;
+          case "PROMOTE":
+          case "DEMOTE":
+            fields.push(`Username: ${log.username ?? "-"}`);
+            fields.push(`Name: ${log.name ?? "-"}`);
+            fields.push(`From: ${log.from ?? "-"}`);
+            fields.push(`To: ${log.to ?? "-"}`);
+            fields.push(`By: ${log.by ?? "-"}`);
+            if (type === "DEMOTE") fields.push(`Reason: ${log.extra ?? "-"}`);
+            fields.push(`Time: ${timeStr}`);
+            break;
+        }
 
-      return `--------------------------------------------------
+        return `--------------------------------------------------
 ${fields.join("\n")}
 --------------------------------------------------`;
-    };
+      };
 
-
-      const getTable = () => {
-        const filtered = getFilteredLogs();
+      const getTable = async () => {
+        const filtered = await getFilteredLogs();
         const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
         if (page >= totalPages) page = totalPages - 1;
 
@@ -144,8 +136,9 @@ Page ${page + 1}/${totalPages} | Filter: ${selectedType}
         .setPlaceholder("Filter logs by type")
         .addOptions(LOG_TYPES.map((t) => ({ label: t, value: t })));
 
-      const getComponents = () => {
-        const totalPages = Math.max(1, Math.ceil(getFilteredLogs().length / PAGE_SIZE));
+      const getComponents = async () => {
+        const filtered = await getFilteredLogs();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
 
         return [
           new ActionRowBuilder().addComponents(selectMenu),
@@ -168,25 +161,24 @@ Page ${page + 1}/${totalPages} | Filter: ${selectedType}
         ];
       };
 
-      const message = await interaction.reply({
-        content: getTable(),
-        components: getComponents(),
-        fetchReply: true,
+      const message = await interaction.editReply({
+        content: await getTable(),
+        components: await getComponents()
       });
 
-      // SINGLE collector for buttons and select menu
       const collector = message.createMessageComponentCollector({ time: 5 * 60 * 1000 });
 
       collector.on("collect", async (i) => {
         if (i.user.id !== interaction.user.id)
           return i.reply({ content: "These controls aren't for you.", ephemeral: true });
 
-        const totalPages = Math.max(1, Math.ceil(getFilteredLogs().length / PAGE_SIZE));
+        const filtered = await getFilteredLogs();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
 
         if (i.isStringSelectMenu()) {
           selectedType = i.values[0];
           page = 0;
-          await i.update({ content: getTable(), components: getComponents() });
+          await i.update({ content: await getTable(), components: await getComponents() });
           return;
         }
 
@@ -209,7 +201,6 @@ Page ${page + 1}/${totalPages} | Filter: ${selectedType}
 
             await i.showModal(modal);
 
-            // Await modal submission directly for this user
             const submitted = await i.awaitModalSubmit({
               filter: (modalInt) => modalInt.user.id === interaction.user.id,
               time: 60_000,
@@ -219,19 +210,17 @@ Page ${page + 1}/${totalPages} | Filter: ${selectedType}
               let newPage = parseInt(submitted.fields.getTextInputValue("page_input"));
               if (isNaN(newPage) || newPage < 1 || newPage > totalPages) newPage = 1;
               page = newPage - 1;
-              await submitted.update({ content: getTable(), components: getComponents() });
+              await submitted.update({ content: await getTable(), components: await getComponents() });
             }
             return;
           }
 
-          await i.update({ content: getTable(), components: getComponents() });
+          await i.update({ content: await getTable(), components: await getComponents() });
         }
       });
     } catch (err) {
       console.error("viewlogs error:", err);
-      if (!interaction.replied) {
-        await interaction.reply({ content: "Failed to fetch logs.", ephemeral: true });
-      }
+      await interaction.editReply({ content: "Failed to fetch logs." });
     }
   },
 };

@@ -1,9 +1,10 @@
-// --------------------------- bot.js ---------------------------
+// --------------------------- index.js ---------------------------
 import "dotenv/config";
 import { Client, GatewayIntentBits, Collection, REST, Routes, ChannelType } from "discord.js";
 import fs from "fs";
 import express from "express";
 import { startReminders } from "./jobs/reminders.js";
+import { initDatabase } from "./db/postgres.js";
 
 const { TOKEN, CLIENT_ID, GUILD_ID, LOG_CHANNEL_ID, PORT } = process.env;
 
@@ -69,8 +70,6 @@ async function sendLogChannelMessage(message) {
 // --------------------------- Discord bot events ---------------------------
 client.once("ready", async () => {
   console.log(`✅ Bot is ONLINE: ${client.user.tag}`);
-
-  // Start reminders
   startReminders(client);
 });
 
@@ -84,8 +83,17 @@ client.on("interactionCreate", async interaction => {
     await command.execute(interaction);
   } catch (error) {
     console.error(error);
-    if (!interaction.replied) {
-      await interaction.reply({ content: "There was an error executing that command!", ephemeral: true });
+    
+    const errorMessage = { content: "There was an error executing that command!" };
+    
+    try {
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({ ...errorMessage, ephemeral: true });
+      } else if (interaction.deferred) {
+        await interaction.editReply(errorMessage);
+      }
+    } catch (err) {
+      console.error("Failed to send error message:", err);
     }
   }
 });
@@ -104,6 +112,7 @@ webApp.listen(webPort, () => {
 
 // --------------------------- Start bot ---------------------------
 (async () => {
+  await initDatabase();
   const commands = await loadCommands();
   await deployCommands(commands);
   await client.login(TOKEN);
